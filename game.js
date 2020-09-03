@@ -98,7 +98,6 @@ function game() {
   });
   var xWalls = []
   var yWalls = []
-  console.log(walls.length);
   walls.forEach((i, idx) => {
     if(i.active) i.show();
   });
@@ -190,18 +189,16 @@ function game() {
   thieves.forEach((i, idx) => {
     i.show();
     i.update();
-    if (distance(p.x, p.y, i.x, i.y) < p.r + i.r) {
-      p.hasFlag = false;
-      flag.x = sclX(750);
-      flag.y = sclY(50);
-      thieves.forEach((j, jdx) => {
-        j.x = j.ogx;
-        j.y = j.ogy;
-      })
-
-    }
+    
   });
 
+  thieves.forEach((i, idx) => {
+    if (distance(p.x, p.y, i.x, i.y) < p.r + i.r) {
+      reset();
+
+    }
+    
+  });
   if (p.hasFlag) {
     if (p.x < sclX(25) & p.y > sclY(475)) {
       reset();
@@ -243,10 +240,7 @@ function game() {
       p.isSlowed = true
     }
   })
-  p.show();
-  p.update();
-  flag.show();
-  flag.update();
+  
   speedboosts.forEach((i, idx) => {
     i.show()
 
@@ -267,12 +261,16 @@ function game() {
   strokeWeight(0);
   rect(-1, sclY(475), sclY(25), sclY(26)); 
   
-  triangleSlowZones.forEach((i, idx) =>{
+  triangleSlowzones.forEach((i, idx) =>{
      i.show()
     if(i.inSlowzone){
        p.isSlowed = true 
     }
 });
+  p.show();
+  p.update();
+  flag.show();
+  flag.update();
 }
 
 
