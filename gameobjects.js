@@ -94,7 +94,7 @@ function Thief(x, y, type){
           this.speed = 1; 
        }
     }else if(type == "speeder"){
-       this.speed = 1.6; 
+       this.speed = 2.3; 
     }
     
   }
@@ -140,20 +140,24 @@ function triangleSlowzone(x, y, xs, ys, type){
        this.cornerx = x;
        this.cornery = y;
          triangle(x, y, x + xs, y, x, y + ys);
-       this.inSlowzone = p.x > this.cornerx && p.y > this.cornery && p.x < x + (p.y - y) * (y + ys / x + xs) && p.y < y + (p.x - x) / (y + ys / x + xs)
+       this.inSlowzone = p.x > this.cornerx && p.y > this.cornery && p.x < x + xs - (p.y - y) * (xs / ys) && p.y < y + (ys / xs) * (x + xs - p.x)
+       
      }else if(this.type == "UR"){
-         triangle(x + xs, y, x, y + ys, x + xs, y + ys);
+         triangle(x + xs, y, x, y, x + xs, y + ys);
        this.cornerx = x + xs;
        this.cornery = y;
-       this.inSlowzone = p.x < x + xs && p.y > y && p.x > (w - (x + xs)) + (p.y - y) * (y + ys / x + xs) && p.y < y + (p.x - x) / (y + ys / x + xs)
+       this.inSlowzone = p.x < this.cornerx && p.y > this.cornery && p.x > x + (p.y - y) * (xs / ys) && p.y < y + (ys / xs) * (p.x - x);
+       
      }else if(this.type == "LL"){
          triangle(x, y + ys, x, y, x + xs, y + ys);
        this.cornerx = x;
        this.cornery = y + ys;
+       this.inSlowzone = p.x > this.cornerx && p.y < this.cornery && p.x < x + (p.y - y) * (xs / ys) && p.y > y + (ys / xs) * (p.x - x)
      }else if(this.type == "LR"){
          triangle(x + xs, y + ys, x + xs, y, x, y + ys);
        this.cornerx = x + xs;
        this.cornery = y + ys;
+       this.inSlowzone = p.x < this.cornerx && p.y < this.cornery && p.x > x + xs - (p.y - y) * (xs / ys) && p.y > y + (ys / xs) * (x + xs - p.x);
      }
   }
 }
@@ -290,7 +294,7 @@ function Cannon(x, y, type){
         stroke(0);
         line(this.xi, this.yi, this.xf, this.yf);
       }else if(type == "highdmg"){
-        this.firerate = 180;
+        this.firerate = 100;
         this.r = 20;
         fill(this.color, this.color , 255);
         ellipse(this.xi, this.yi, this.r * 2, this.r * 2);
@@ -413,11 +417,7 @@ var upperLeftLowerWall = new Wall(0, 100, 100, 100, "x");
   var upperLeftRightWall = new Wall(100, 0, 100, 100, "y")
   var lowerRightLeftWall = new Wall(700, 400, 700, 500, "y");
   var lowerRightUpperWall = new Wall(700, 400, 800, 400, "x");
-  walls.push(upperLeftLowerWall);
-  walls.push(upperLeftRightWall);
-  walls.push(lowerRightLeftWall);
-  walls.push(lowerRightUpperWall);
-
+  
 function Bait(x, y){
    this.x = x;
   this.y = y;
