@@ -278,16 +278,11 @@ function keyReleased() {
 
 function reset(){
 
-  
-  switch(mn.level){
-    case 1:
-      for(let i = walls.length - 1; i >= 0 ; i--){
+  for(let i = walls.length - 1; i >= 0 ; i--){
           if(walls[i].partOfCell){
              walls.splice(i, 1); 
           }
-      }
-      cells[0] = new Cell(350, 200, 100, "UL");
-      
+      }      
          p.x = sclX(50);
          p.y = sclY(450);
       p.ogx = sclX(50);
@@ -296,22 +291,53 @@ function reset(){
          p.hasFlag = false;
          flag.x =sclX(750);
          flag.y = sclY(50);
-         thieves[0] = new Thief(sclX(50), sclY(50), "burst");
+  switch(mn.level){
+    case 1:
+      
+         thieves[0] = new Thief(sclX(50), sclY(50), "speeder");
           thieves[1] = new Thief(sclX(750), sclY(450), "speeder");
-           cannons[0]=  new Cannon(400, 50, "lowdmg");
-           cannons[1] = new Cannon(400, 450, "highdmg");
-      speedboosts[0] = new speedBoost(200, 400);
-      portals[0] = new Portal(200, 100, 600, 100);
+          walls[0] = upperLeftLowerWall;
+          walls[1] = upperLeftRightWall;
+          walls[2] = lowerRightLeftWall;
+          walls[3] = lowerRightUpperWall;
+    
        break;
        
+      
        case 2:
-       
+       thieves[0] = new Thief(sclX(50), sclY(50), "speeder");
+          thieves[1] = new Thief(sclX(750), sclY(450), "speeder");
+      walls[0] = upperLeftLowerWall;
+          walls[1] = upperLeftRightWall;
+          walls[2] = lowerRightLeftWall;
+          walls[3] = lowerRightUpperWall;
+      walls[4] = new Wall(600, 30, 600, 200, "y");
+      walls[5] = new Wall(600, 200, 770, 200, "x"); 
+      walls[6] = new Wall(30, 400, 100, 400, "x");
+      walls[7] = new Wall(100, 400, 100, 470, "y");
        break;
        case 3:
-       
+       thieves[0] = new Thief(sclX(50), sclY(50), "speeder");
+          thieves[1] = new Thief(sclX(750), sclY(450), "speeder");
+      walls[0] = upperLeftLowerWall;
+          walls[1] = upperLeftRightWall;
+          walls[2] = lowerRightLeftWall;
+          walls[3] = lowerRightUpperWall;
+      cannons[0] = new Cannon(600, 50, "highdmg");
+      cannons[1] = new Cannon(750, 200, "highdmg");
        break;
        case 4:
-       
+       thieves[0] = new Thief(sclX(50), sclY(50), "speeder");
+          thieves[1] = new Thief(sclX(750), sclY(450), "speeder");
+      walls[0] = upperLeftLowerWall;
+          walls[1] = upperLeftRightWall;
+          walls[2] = lowerRightLeftWall;
+          walls[3] = lowerRightUpperWall;
+      cannons = []
+       cannons[0] = new Cannon(650, 150, "highdmg");
+      
+      walls[4] = new Wall(500, 100, 650, 100, "x");
+      walls[5] = new Wall(700, 150, 700, 300, "y");
        break;
        case 5:
        
@@ -333,6 +359,10 @@ function reset(){
        break;
        
   }
+  thieves.forEach((i, idx) => {
+       i.x = i.ogx;
+       i.y = i.ogy;
+  });
 }
 
 
